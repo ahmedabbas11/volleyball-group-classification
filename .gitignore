@@ -1,0 +1,33 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+env/
+
+# Dataset and downloaded models
+data/
+*.pth
+*.pt
+
+# Logs and debugging
+*.log
+debug.log
+
+# TensorBoard
+runs/
+
+# IDE specific
+.vscode/               # Visual Studio Code files
+*.iml
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env                   # Environment variables
+*.env
+
+/.idea/
