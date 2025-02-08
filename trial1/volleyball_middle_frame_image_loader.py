@@ -23,7 +23,7 @@ def load_volleyball_middle_frame_dataset(videos_root):
     videos_dirs.sort()
 
     videos_annot = {}
-    index = 0
+    index = 1
     # Iterate on each video and for each video iterate on each clip
     for vIndex , video_dir in enumerate(videos_dirs):
         video_dir_path = os.path.join(videos_root, video_dir)
@@ -40,7 +40,7 @@ def load_volleyball_middle_frame_dataset(videos_root):
         clips_dir.sort()
 
         for clip_dir in clips_dir:
-            index+=1
+
             clip_dir_path = os.path.join(video_dir_path, clip_dir)
 
             if not os.path.isdir(clip_dir_path):
@@ -60,6 +60,7 @@ def load_volleyball_middle_frame_dataset(videos_root):
                 'label': clip_category_dct[clip_file_name],
                 'img_path': img_path
             }
+            index+=1
 
     return videos_annot
 
@@ -103,4 +104,4 @@ if __name__ == '__main__':
     # videos_root = f'{dataset_root}/videos'
     # videos_annot = load_volleyball_middle_frame_dataset(videos_root)
     # create_pkl_middle_frame_version()
-    test_pkl_middle_frame_version()
+    create_pkl_middle_frame_version()

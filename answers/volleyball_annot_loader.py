@@ -1,15 +1,10 @@
-from operator import index
-
-import cv2
 import os
 import pickle
 from typing import List
 
-from six import print_
+import cv2
 
 from boxinfo import BoxInfo
-
-
 
 # dataset_root = '/home/moustafa/0hdd/research/sfu/volleyball-datasets'
 dataset_root = '/Users/ahmedabbas/Documents/deep-learning/vollyball_project/volleyball-dataset'
