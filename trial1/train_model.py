@@ -7,7 +7,7 @@ from trial1.data_loader import get_dataset
 
 # Hyperparameters
 batch_size = 32
-num_epochs = 10
+num_epochs = 50
 learning_rate = 0.001
 
 # Load data

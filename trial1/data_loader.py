@@ -26,6 +26,7 @@ def get_dataset(batch_size=32):
     train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False)
     # Number of unique videos (or another label strategy)
-    classes = set(label for _, label in train_set.dataset)
-
+    print(f'dataset Loaded {len(dataset)}')
+    classes = set(label for _, label, _ in train_set.dataset)
+    print(f'classes calculated {classes}')
     return train_loader, test_loader, classes

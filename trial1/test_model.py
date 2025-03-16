@@ -14,6 +14,7 @@ def test_model(model_path, batch_size=32):
     _, testloader, classes = get_dataset(batch_size=batch_size)
 
     # Load the trained model
+    print('loading model')
     net = models.resnet50(pretrained=True)
     net.fc = nn.Linear(net.fc.in_features, len(classes))  # Modify output layer
     net.load_state_dict(torch.load(model_path))
@@ -24,16 +25,19 @@ def test_model(model_path, batch_size=32):
     correct = 0
     total = 0
     misclassified = []
+    counter = 1
     with torch.no_grad():
         for data in testloader:
-            images, labels = data[0].to(device), data[1].to(device)
+            print(f'Testing on batch {counter}')
+            counter+=1
+            images, labels, paths = data[0].to(device), data[1].to(device), data[2]
             outputs = net(images)
             _, predicted = torch.max(outputs, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
             for i in range(len(labels)):
                 if predicted[i] != labels[i]:
-                    print(f'Misclassified image {testloader.dataset.__getitem__(i)}')
+                    print(f'Misclassified image {paths[i]} and label {labels[i]} and predicted {predicted[i]}')
                     misclassified.append((images[i], labels[i], predicted[i]))
 
     # Print accuracy

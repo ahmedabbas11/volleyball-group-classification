@@ -23,19 +23,19 @@ class VolleyballMiddleFrameDataset(Dataset):
         for  _, entry in self.videos_annot.items():
             img_path = entry['img_path']
             lbl_str = entry['label']
-            img = Image.open(img_path).convert("RGB")
-            self.data.append((img, class_labels[lbl_str]))
+            self.data.append((img_path, class_labels[lbl_str]))
         print('data loaded')
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, idx):
-        image, label = self.data[idx]
+        img_path, label = self.data[idx]
         # Apply transformations if provided
+        image = Image.open(img_path).convert("RGB")
         if self.transform:
             image = self.transform(image)
         if self.target_transform:
             label = self.target_transform(label)
 
-        return image, label
+        return image, label, img_path
