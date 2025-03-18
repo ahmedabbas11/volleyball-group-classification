@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 from torchvision import models
 
-from trial1.data_loader import get_dataset
+from b1.data_loader import get_dataset
 
 # Hyperparameters
 batch_size = 32

@@ -1,8 +1,8 @@
 from torch.utils.data import DataLoader, random_split
 from torchvision.transforms import transforms
 
-from trial1.volleyball_middle_frame_dataset import VolleyballMiddleFrameDataset
-from trial1.volleyball_middle_frame_image_loader import dataset_root
+from b1.volleyball_middle_frame_dataset import VolleyballMiddleFrameDataset
+from b1.volleyball_middle_frame_image_loader import dataset_root
 
 
 def get_dataset(batch_size=32):

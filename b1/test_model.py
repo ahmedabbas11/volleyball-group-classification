@@ -3,7 +3,7 @@ import torch
 from torch import nn
 from torchvision import models
 
-from trial1.data_loader import get_dataset
+from b1.data_loader import get_dataset
 
 
 def test_model(model_path, batch_size=32):

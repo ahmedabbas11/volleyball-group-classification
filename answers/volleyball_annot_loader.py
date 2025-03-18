@@ -4,9 +4,8 @@ from typing import List
 
 import cv2
 
-from boxinfo import BoxInfo
+from answers.boxinfo import BoxInfo
 
-# dataset_root = '/home/moustafa/0hdd/research/sfu/volleyball-datasets'
 dataset_root = '/Users/ahmedabbas/Documents/deep-learning/vollyball_project/volleyball-dataset'
 
 def load_tracking_annot(path):
@@ -216,9 +215,9 @@ if __name__ == '__main__':
     # annot_file = f'{dataset_root}/annotations/4/24855/24855.txt'
     # clip_dir_path = os.path.dirname(annot_file).replace('annotations', 'videos')
     # vis_clip(annot_file, clip_dir_path)
-    # create_pkl_version()
+    create_pkl_version()
     # test_pkl_version()
     # videos_root = f'{dataset_root}/videos'
     # videos_annot = load_volleyball_middle_frame_dataset(videos_root)
     # create_pkl_middle_frame_version()
-    test_pkl_middle_frame_version()
+    # test_pkl_middle_frame_version()

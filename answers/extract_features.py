@@ -2,15 +2,13 @@ import os
 import numpy as np
 import cv2
 import torch
-from PIL import __version__ as PILLOW_VERSION
 
 import torch.nn as nn
 import torchvision.models as models
 import torchvision.transforms as transforms
 from PIL import Image
-from volleyball_annot_loader import load_tracking_annot
 
-dataset_root = '/home/moustafa/0hdd/research/sfu/volleyball-datasets'
+from answers.volleyball_annot_loader import load_tracking_annot, dataset_root
 
 
 def check():
