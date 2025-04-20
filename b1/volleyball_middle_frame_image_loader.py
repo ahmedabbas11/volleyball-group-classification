@@ -3,11 +3,12 @@ import pickle
 from typing import List
 
 from answers.boxinfo import BoxInfo
+from answers.volleyball_annot_loader import working_dir, dataset_root
 
-dataset_root = '/Users/ahmedabbas/Documents/deep-learning/vollyball_project/volleyball-dataset'
+# dataset_root = '/Users/ahmedabbas/Documents/deep-learning/vollyball_project/volleyball-dataset'
 
 def test_pkl_version():
-    with open(f'{dataset_root}/annot_all.pkl', 'rb') as file:
+    with open(f'{working_dir}/annot_all.pkl', 'rb') as file:
         videos_annot = pickle.load(file)
 
     boxes: List[BoxInfo] = videos_annot['0']['13456']['frame_boxes_dct'][13454]
