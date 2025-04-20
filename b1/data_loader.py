@@ -2,7 +2,7 @@ from torch.utils.data import DataLoader, random_split
 from torchvision.transforms import transforms
 
 from b1.volleyball_middle_frame_dataset import VolleyballMiddleFrameDataset
-from b1.volleyball_middle_frame_image_loader import dataset_root
+from b1.volleyball_middle_frame_image_loader import working_dir
 
 
 def get_dataset(batch_size=32):
@@ -12,7 +12,7 @@ def get_dataset(batch_size=32):
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
     ])
-    picle_file = f'{dataset_root}/annot_middle_frame.pkl'
+    picle_file = f'{working_dir}/annot_middle_frame.pkl'
     dataset = VolleyballMiddleFrameDataset(picle_file, transform=transform)
     # Define split ratios
     train_ratio = 0.8  # 80% training, 20% testing

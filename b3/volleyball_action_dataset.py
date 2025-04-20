@@ -10,7 +10,7 @@ CATEGORIES = ["spiking", "moving", "standing", "waiting", "blocking", "digging",
 CATEGORY_TO_INDEX = {c: i for i, c in enumerate(CATEGORIES)}
 
 class VolleyballActionDataset(Dataset):
-    def __init__(self, pickle_file, dataset_root, transform=None):
+    def __init__(self, pickle_file, dataset_root, videos_folder, transform=None):
         """
         Custom Dataset for Volleyball Action Classification
         :param pickle_file: Path to the pickle annotation file.
@@ -31,7 +31,7 @@ class VolleyballActionDataset(Dataset):
             for clipId, clip_data in video_data.items():
                 for frameId, boxes in clip_data['frame_boxes_dct'].items():
 
-                    frame_path = os.path.join(dataset_root, "videos", videoId, clipId, f"{frameId}.jpg")
+                    frame_path = os.path.join(dataset_root, videos_folder, videoId, clipId, f"{frameId}.jpg")
                     if not os.path.exists(frame_path):
                         continue  # Skip missing frames
 
