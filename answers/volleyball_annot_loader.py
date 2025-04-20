@@ -6,9 +6,15 @@ import cv2
 
 from answers.boxinfo import BoxInfo
 
-dataset_root = '/Users/ahmedabbas/Documents/deep-learning/vollyball_project/volleyball-dataset'
-annotations_folder = 'annotations'
-videos_folder = 'videos'
+# dataset_root = '/Users/ahmedabbas/Documents/deep-learning/vollyball_project/volleyball-dataset'
+# annotations_folder = 'annotations'
+# videos_folder = 'videos'
+
+dataset_root = '/kaggle/input/volleyball/'
+annotations_folder = 'volleyball_tracking_annotation/volleyball_tracking_annotation'
+videos_folder = 'volleyball_/videos'
+working_dir = '/kaggle/working/'
+
 
 def load_tracking_annot(path):
     with open(path, 'r') as file:
@@ -121,12 +127,12 @@ def create_pkl_version():
 
     videos_annot = load_volleyball_dataset(videos_root, annot_root)
 
-    with open(f'{dataset_root}/annot_all.pkl', 'wb') as file:
+    with open(f'{working_dir}/annot_all.pkl', 'wb') as file:
         pickle.dump(videos_annot, file)
 
 
 def test_pkl_version():
-    with open(f'{dataset_root}/annot_all.pkl', 'rb') as file:
+    with open(f'{working_dir}/annot_all.pkl', 'rb') as file:
         videos_annot = pickle.load(file)
 
     boxes: List[BoxInfo] = videos_annot['0']['13456']['frame_boxes_dct'][13454]
@@ -194,15 +200,15 @@ def load_video_annotـmiddle_frame_only(video_annot):
 
 def create_pkl_middle_frame_version():
     # You can use this function to create and save pkl version of the dataset
-    videos_root = f'{dataset_root}/videos'
+    videos_root = f'{dataset_root}/{videos_folder}'
 
     videos_annot = load_volleyball_middle_frame_dataset(videos_root)
 
-    with open(f'{dataset_root}/annot_middle_frame.pkl', 'wb') as file:
+    with open(f'{working_dir}/annot_middle_frame.pkl', 'wb') as file:
         pickle.dump(videos_annot, file)
 
 def test_pkl_middle_frame_version():
-    with open(f'{dataset_root}/annot_middle_frame.pkl', 'rb') as file:
+    with open(f'{working_dir}/annot_middle_frame.pkl', 'rb') as file:
         videos_annot = pickle.load(file)
 
     for idx in videos_annot:

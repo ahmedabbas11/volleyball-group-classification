@@ -1,13 +1,13 @@
 from pandas.core.dtypes.common import classes
 from torch.utils.data import DataLoader, random_split
 
-from answers.volleyball_annot_loader import dataset_root
+from answers.volleyball_annot_loader import working_dir, dataset_root
 from b3.volleyball_action_dataset import VolleyballActionDataset, default_transform, CATEGORIES
 
 
 def data_loader(batch_size=32, num_workers=4):
     # 🔹 Paths
-    PICKLE_FILE = f'{dataset_root}/annot_all.pkl'
+    PICKLE_FILE = f'{working_dir}/annot_all.pkl'
 
     # 🔹 Load dataset
     dataset = VolleyballActionDataset(pickle_file=PICKLE_FILE, dataset_root=dataset_root, transform=default_transform)
