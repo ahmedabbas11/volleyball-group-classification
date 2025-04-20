@@ -7,6 +7,8 @@ import cv2
 from answers.boxinfo import BoxInfo
 
 dataset_root = '/Users/ahmedabbas/Documents/deep-learning/vollyball_project/volleyball-dataset'
+annotations_folder = 'annotations'
+videos_folder = 'videos'
 
 def load_tracking_annot(path):
     with open(path, 'r') as file:
@@ -114,8 +116,8 @@ def load_volleyball_dataset(videos_root, annot_root):
 
 def create_pkl_version():
     # You can use this function to create and save pkl version of the dataset
-    videos_root = f'{dataset_root}/videos'
-    annot_root = f'{dataset_root}/annotations'
+    videos_root = f'{dataset_root}/{videos_folder}'
+    annot_root = f'{dataset_root}/{annotations_folder}'
 
     videos_annot = load_volleyball_dataset(videos_root, annot_root)
 
@@ -171,7 +173,7 @@ def load_volleyball_middle_frame_dataset(videos_root):
             # video dir
             # clip dir
             # middle frame file name
-            videos_root = f'{dataset_root}/videos'
+            videos_root = f'{dataset_root}/{videos_folder}'
             img_path = f'{videos_root}/{video_dir}/{clip_dir}/{clip_file_name}'
             videos_annot[index] = {
                 'label': clip_category_dct[clip_file_name],

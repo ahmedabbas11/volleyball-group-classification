@@ -6,7 +6,7 @@ import os
 import pickle
 from answers.boxinfo import BoxInfo
 # Define categories and mapping
-CATEGORIES = ["spiking", "moving", "standing", "waiting", "blocking", "digging"]
+CATEGORIES = ["spiking", "moving", "standing", "waiting", "blocking", "digging", "setting", "jumping", "falling"]
 CATEGORY_TO_INDEX = {c: i for i, c in enumerate(CATEGORIES)}
 
 class VolleyballActionDataset(Dataset):
@@ -20,6 +20,7 @@ class VolleyballActionDataset(Dataset):
         self.dataset_root = dataset_root
         self.transform = transform
         self.data = []
+        self.cache = {}
 
         # Load pickle file
         with open(pickle_file, "rb") as f:
@@ -50,12 +51,19 @@ class VolleyballActionDataset(Dataset):
         """
         frame_path, box, label = self.data[idx]
 
-        # Load the full-frame image
-        image = Image.open(frame_path).convert("RGB")
+        # Check if the cropped image is already in the cache
+        if idx in self.cache:
+            cropped_img = self.cache[idx]
+        else:
+            # Load the full-frame image
+            image = Image.open(frame_path).convert("RGB")
 
-        # Extract bounding box
-        x1, y1, x2, y2 = box
-        cropped_img = image.crop((x1, y1, x2, y2))  # Crop the player
+            # Extract bounding box
+            x1, y1, x2, y2 = box
+            cropped_img = image.crop((x1, y1, x2, y2))  # Crop the player
+
+            # Store the cropped image in the cache
+            self.cache[idx] = cropped_img
 
         # Apply transformations
         if self.transform:
