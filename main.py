@@ -1,5 +1,5 @@
 from b3.train_model import train
-from b3.volleyball_action_dataloader import data_loader
+from answers.boxinfo import BoxInfo
 
 if __name__ == "__main__":
     train()
