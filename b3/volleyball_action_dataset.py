@@ -26,7 +26,6 @@ class VolleyballActionDataset(Dataset):
         with open(pickle_file, "rb") as f:
             print(f"Loading pickle file: {pickle_file}")
             videos_annot = pickle.load(f)
-            print(f"Pickle file loaded successfully.")
 
         print(f"videos_annot size: {len(videos_annot)}")
         print(f"dataset_root: {dataset_root}")

@@ -12,7 +12,7 @@ from answers.boxinfo import BoxInfo
 
 dataset_root = '/kaggle/input/group-activity-recognition-volleyball'
 annotations_folder = '/volleyball_tracking_annotation'
-videos_folder = '/videos'
+videos_folder = 'videos'
 working_dir = '/kaggle/working'
 
 
