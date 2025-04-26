@@ -10,9 +10,9 @@ from answers.boxinfo import BoxInfo
 # annotations_folder = 'annotations'
 # videos_folder = 'videos'
 
-dataset_root = '/kaggle/input/volleyball'
-annotations_folder = 'volleyball_tracking_annotation/volleyball_tracking_annotation'
-videos_folder = 'volleyball_/videos'
+dataset_root = '/kaggle/input/group-activity-recognition-volleyball'
+annotations_folder = '/volleyball_tracking_annotation'
+videos_folder = '/videos'
 working_dir = '/kaggle/working'
 
 
