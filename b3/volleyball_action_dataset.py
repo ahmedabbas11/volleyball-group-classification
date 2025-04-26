@@ -37,7 +37,10 @@ class VolleyballActionDataset(Dataset):
                 for frameId, boxes in clip_data['frame_boxes_dct'].items():
 
                     frame_path = os.path.join(dataset_root, videos_folder, videoId, clipId, f"{frameId}.jpg")
+                    print(f"Processing frame: {frame_path}")
+                    # Check if the frame exists
                     if not os.path.exists(frame_path):
+                        print(f"Frame not found: {frame_path}")
                         continue  # Skip missing frames
 
                     for box_info in boxes:
