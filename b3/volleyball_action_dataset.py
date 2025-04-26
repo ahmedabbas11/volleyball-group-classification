@@ -24,6 +24,7 @@ class VolleyballActionDataset(Dataset):
 
         # Load pickle file
         with open(pickle_file, "rb") as f:
+            print(f"Loading pickle file: {pickle_file}")
             videos_annot = pickle.load(f)
 
         # Extract metadata from pickle annotations
