@@ -20,8 +20,8 @@ def train():
     model.fc = nn.Linear(model.fc.in_features, num_classes)  # Modify output layer
 
     # Move model to GPU if available
-    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
     model = model.to(device)
 
     # Loss function and optimizer
