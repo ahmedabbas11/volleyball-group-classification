@@ -29,6 +29,8 @@ class VolleyballActionDataset(Dataset):
             print(f"Pickle file loaded successfully.")
 
         print(f"videos_annot size: {len(videos_annot)}")
+        print(f"dataset_root: {dataset_root}")
+        print(f"videos folder: {os.path.join(dataset_root, videos_folder)}")
         # Extract metadata from pickle annotations
         for videoId, video_data in videos_annot.items():
             print(f"video data size: {len(video_data)}")
