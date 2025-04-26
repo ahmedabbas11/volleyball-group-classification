@@ -10,10 +10,10 @@ from answers.boxinfo import BoxInfo
 # annotations_folder = 'annotations'
 # videos_folder = 'videos'
 
-dataset_root = '/kaggle/input/volleyball/'
+dataset_root = '/kaggle/input/volleyball'
 annotations_folder = 'volleyball_tracking_annotation/volleyball_tracking_annotation'
 videos_folder = 'volleyball_/videos'
-working_dir = '/kaggle/working/'
+working_dir = '/kaggle/working'
 
 
 def load_tracking_annot(path):
