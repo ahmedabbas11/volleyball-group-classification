@@ -7,8 +7,8 @@ from b3.volleyball_action_dataloader import data_loader
 
 # Hyperparameters
 batch_size = 128
-num_epochs = 20
-learning_rate = 0.001
+num_epochs = 5
+learning_rate = 0.0001
 
 def train():
     # Load data
