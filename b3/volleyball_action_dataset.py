@@ -61,7 +61,7 @@ class VolleyballActionDataset(Dataset):
         # Only load frame if different from last one
         if self.last_frame_id != frame_path:
             # Load the full-frame image
-            print(f"Loading frame: {frame_path}")
+            # print(f"Loading frame: {frame_path}")
             self.last_frame_image = Image.open(frame_path).convert("RGB")
             self.last_frame_id = frame_path
 
