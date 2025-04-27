@@ -20,7 +20,8 @@ class VolleyballActionDataset(Dataset):
         self.dataset_root = dataset_root
         self.transform = transform
         self.data = []
-        self.cache = {}
+        self.last_frame_id = None
+        self.last_frame_image = None
 
         # Load pickle file
         with open(pickle_file, "rb") as f:
@@ -57,20 +58,16 @@ class VolleyballActionDataset(Dataset):
         Loads a frame, crops the player, applies transformations, and returns (image, label).
         """
         frame_path, box, label = self.data[idx]
-
-        # Check if the cropped image is already in the cache
-        if idx in self.cache:
-            cropped_img = self.cache[idx]
-        else:
+        # Only load frame if different from last one
+        if self.last_frame_id != frame_path:
             # Load the full-frame image
-            image = Image.open(frame_path).convert("RGB")
+            print(f"Loading frame: {frame_path}")
+            self.last_frame_image = Image.open(frame_path).convert("RGB")
+            self.last_frame_id = frame_path
 
-            # Extract bounding box
-            x1, y1, x2, y2 = box
-            cropped_img = image.crop((x1, y1, x2, y2))  # Crop the player
-
-            # Store the cropped image in the cache
-            self.cache[idx] = cropped_img
+        # Extract bounding box
+        x1, y1, x2, y2 = box
+        cropped_img = self.last_frame_image.crop((x1, y1, x2, y2))  # Crop the player
 
         # Apply transformations
         if self.transform:

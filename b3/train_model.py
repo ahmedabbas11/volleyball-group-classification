@@ -1,6 +1,7 @@
 
 import os
 import torch
+import time
 import torch.nn as nn
 from torchvision import models
 from config.config import working_dir
@@ -53,10 +54,11 @@ def train():
     print('training started')
     for epoch in range(num_epochs):  # Loop over the dataset multiple times
         running_loss = 0.0
-        if(step > 0):
-            running_loss = checkpoint_loss.item()
         model.train()
+        print(f"Epoch {epoch + 1}/{num_epochs}")
+        print("traingLoader size: ", len(trainloader))
         for step, data in enumerate(trainloader, 0):
+            start_train_time = time.time()
             # Get inputs and labels
             image, label = data
             images, labels = image.to(device), label.to(device)
@@ -79,6 +81,8 @@ def train():
                 running_loss = 0.0
             if step % 1000 == 0:
                 save_checkpoint(model, optimizer, epoch, step, loss)
+            train_time = time.time() - start_train_time
+            print(f"Training step {step} time: {train_time:.4f} seconds")
 
     print('Finished Training')
 
