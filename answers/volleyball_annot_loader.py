@@ -3,17 +3,8 @@ import pickle
 from typing import List
 
 import cv2
-
+from config.config import dataset_root, videos_folder, annotations_folder, working_dir
 from answers.boxinfo import BoxInfo
-
-# dataset_root = '/Users/ahmedabbas/Documents/deep-learning/vollyball_project/volleyball-dataset'
-# annotations_folder = 'annotations'
-# videos_folder = 'videos'
-
-dataset_root = '/kaggle/input/group-activity-recognition-volleyball'
-annotations_folder = '/volleyball_tracking_annotation'
-videos_folder = 'videos'
-working_dir = '/kaggle/working'
 
 
 def load_tracking_annot(path):

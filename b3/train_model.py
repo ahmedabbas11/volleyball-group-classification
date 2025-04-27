@@ -1,8 +1,9 @@
 
+import os
 import torch
 import torch.nn as nn
 from torchvision import models
-from answers.volleyball_annot_loader import working_dir
+from config.config import working_dir
 from b3.volleyball_action_dataloader import data_loader
 
 # Hyperparameters
@@ -10,7 +11,9 @@ batch_size = 128
 num_epochs = 5
 learning_rate = 0.0001
 snapshot_dir = f'{working_dir}/snapshots'
+models_dir = f'{working_dir}/models'
 os.makedirs(snapshot_dir, exist_ok=True)
+latest_snapshot_path = os.path.join(snapshot_dir, 'snapshot_latest.pt')
 
 def train():
     # Load data
@@ -30,16 +33,19 @@ def train():
     criterion = nn.CrossEntropyLoss()  # For classification problems
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
-    start_step = 0
+    step = 0
+    epoch = 0
+    loss = 0.0
     snapshot_path = 'snapshots/snapshot_latest.pt'
 
     if os.path.exists(snapshot_path):
-        checkpoint = torch.load(snapshot_path)
+        checkpoint = torch.load(latest_snapshot_path)
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
-        start_step = checkpoint['step'] + 1
-        print(f"Resumed from step {start_step}")
+        epoch = checkpoint['epoch']
+        checkpoint_loss = checkpoint['loss']
+        step = checkpoint['step'] + 1
+        print(f"Resumed from step {step} of epoch {epoch} with loss {loss:.4f}")
     else:
         print("Starting from scratch.")
 
@@ -47,8 +53,10 @@ def train():
     print('training started')
     for epoch in range(num_epochs):  # Loop over the dataset multiple times
         running_loss = 0.0
+        if(step > 0):
+            running_loss = checkpoint_loss.item()
         model.train()
-        for i, data in enumerate(trainloader, 0):
+        for step, data in enumerate(trainloader, 0):
             # Get inputs and labels
             image, label = data
             images, labels = image.to(device), label.to(device)
@@ -66,26 +74,29 @@ def train():
 
             # Print statistics
             running_loss += loss.item()
-            if i % 20 == 19:  # Print every 200 mini-batches
-                print(f'[Epoch {epoch + 1}, Batch {i + 1}] loss: {running_loss / 20:.3f}')
+            if step % 20 == 19:  # Print every 200 mini-batches
+                print(f'[Epoch {epoch + 1}, Batch {step + 1}] loss: {running_loss / 20:.3f}')
                 running_loss = 0.0
-            if i % 1000 == 0:
-                snapshot_path = os.path.join(snapshot_dir, f'snapshot_step_{i}.pt')
-                torch.save({
-                    'model_state_dict': model.state_dict(),
-                    'optimizer_state_dict': optimizer.state_dict(),
-                    'step': i,
-                }, snapshot_path)
-                print(f"Saved snapshot: {snapshot_path}")
-                # Save snapshot again
-                torch.save({
-                    'model_state_dict': model.state_dict(),
-                    'optimizer_state_dict': optimizer.state_dict(),
-                    'step': step,
-                }, 'snapshots/snapshot_latest.pt')
+            if step % 1000 == 0:
+                save_checkpoint(model, optimizer, epoch, step, loss)
 
     print('Finished Training')
 
     # Save the trained model
-    torch.save(model.state_dict(), 'b3_resnet50_stagA_player_pos.pth')
-    print("Model saved as b3_resnet50_stagA_player_pos.pth")
+    model_path = os.path.join(models_dir, 'b3_a_resnet50_player_pos.pth')
+    torch.save(model.state_dict(), model_path)
+    print("Model saved as b3_a_resnet50_player_pos.pth")
+
+def save_checkpoint(model, optimizer, epoch, step, loss):
+    snapshot_path = os.path.join(snapshot_dir, f'snapshot_step_{step}.pt')
+    checkpoint ={
+                    'epoch': epoch,
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'loss': loss,
+                    'step': step
+                }
+    torch.save(checkpoint, snapshot_path)
+    print(f"Saved snapshot: {snapshot_path}")
+    # Save latest snapshot
+    torch.save(checkpoint, latest_snapshot_path)

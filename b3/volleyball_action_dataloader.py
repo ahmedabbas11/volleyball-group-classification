@@ -1,7 +1,7 @@
 from pandas.core.dtypes.common import classes
 from torch.utils.data import DataLoader, random_split
 
-from answers.volleyball_annot_loader import working_dir, dataset_root, videos_folder
+from config.config import dataset_root, videos_folder, annotations_folder, working_dir
 from b3.volleyball_action_dataset import VolleyballActionDataset, default_transform, CATEGORIES
 
 
