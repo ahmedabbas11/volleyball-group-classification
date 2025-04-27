@@ -82,7 +82,7 @@ def train():
             if step % 1000 == 0:
                 save_checkpoint(model, optimizer, epoch, step, loss)
             train_time = time.time() - start_train_time
-            print(f"Training step {step} time: {train_time:.4f} seconds")
+            # print(f"Training step {step} time: {train_time:.4f} seconds")
 
     print('Finished Training')
 
