@@ -35,8 +35,8 @@ def train():
     criterion = nn.CrossEntropyLoss()  # For classification problems
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
 
-    step = 0
-    epoch = 0
+    start_step = 0
+    start_epoch = 0
     loss = 0.0
     snapshot_path = 'snapshots/snapshot_latest.pt'
 
@@ -44,21 +44,21 @@ def train():
         checkpoint = torch.load(latest_snapshot_path)
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        epoch = checkpoint['epoch']
-        checkpoint_loss = checkpoint['loss']
-        step = checkpoint['step'] + 1
-        print(f"Resumed from step {step} of epoch {epoch} with loss {loss:.4f}")
+        start_epoch = checkpoint['epoch']
+        start_loss = checkpoint['loss']
+        start_step = checkpoint['step'] + 1
+        print(f"Resumed from step {start_step} of epoch {start_epoch} with loss {start_loss:.4f}")
     else:
         print("Starting from scratch.")
 
     # Training loop
     print('training started')
-    for epoch in range(num_epochs):  # Loop over the dataset multiple times
+    for epoch in range(start_epoch, num_epochs):  # Loop over the dataset multiple times
         running_loss = 0.0
         model.train()
         print(f"Epoch {epoch + 1}/{num_epochs}")
         print("traingLoader size: ", len(trainloader))
-        for step, data in enumerate(trainloader, 0):
+        for step, data in enumerate(trainloader, start_step):
             start_train_time = time.time()
             # Get inputs and labels
             image, label = data
@@ -93,7 +93,7 @@ def train():
     print("Model saved as b3_a_resnet50_player_pos.pth")
 
 def save_checkpoint(model, optimizer, epoch, step, loss):
-    snapshot_path = os.path.join(snapshot_dir, f'snapshot_step_{step}.pt')
+    snapshot_path = os.path.join(snapshot_dir, f'snapshot_epoch_{epoch}_step_{step}.pt')
     checkpoint ={
                     'epoch': epoch,
                     'model_state_dict': model.state_dict(),
