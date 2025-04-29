@@ -4,7 +4,7 @@ import torch
 import time
 import torch.nn as nn
 from torchvision import models
-from config.config import working_dir
+from config.config import working_dir, output_dir
 from b3.volleyball_action_dataloader import data_loader
 
 # Hyperparameters
@@ -12,9 +12,10 @@ batch_size = 128
 num_epochs = 5
 learning_rate = 0.0001
 snapshot_dir = f'{working_dir}/snapshots'
-models_dir = f'{working_dir}/models'
+models_dir = f'{output_dir}/models'
 os.makedirs(snapshot_dir, exist_ok=True)
-latest_snapshot_path = os.path.join(snapshot_dir, 'snapshot_latest.pt')
+os.makedirs(models_dir, exist_ok=True)
+latest_snapshot_path = os.path.join(output_dir, 'snapshot_latest.pt')
 
 def train():
     # Load data

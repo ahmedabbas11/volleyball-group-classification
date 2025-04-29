@@ -9,8 +9,10 @@ if running_on_kaggle():
     dataset_root = '/kaggle/input/group-activity-recognition-volleyball'
     annotations_folder = '/volleyball_tracking_annotation'
     working_dir = '/kaggle/working'
+    output_dir = '/kaggle/outputs/'
 else:
     print("Running locally")
     dataset_root = '/Users/ahmedabbas/Documents/deep-learning/vollyball_project/volleyball-dataset'
     annotations_folder = 'annotations'
     working_dir = '.'
+    output_dir = '.'
