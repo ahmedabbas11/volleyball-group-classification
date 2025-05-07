@@ -15,7 +15,7 @@ snapshot_dir = f'{working_dir}/snapshots'
 models_dir = f'{output_dir}/models'
 os.makedirs(snapshot_dir, exist_ok=True)
 os.makedirs(models_dir, exist_ok=True)
-latest_snapshot_path = os.path.join(output_dir, 'snapshot_latest.pt')
+latest_snapshot_path = os.path.join(output_dir, 'snapshots', 'snapshot_latest.pt')
 
 def train():
     # Load data
@@ -58,7 +58,9 @@ def train():
         model.train()
         print(f"Epoch {epoch + 1}/{num_epochs}")
         print("traingLoader size: ", len(trainloader))
-        for step, data in enumerate(trainloader, start_step):
+        for step in range(start_step, len(trainloader)):
+            data = trainloader.__iter__().__next__()
+
             start_train_time = time.time()
             # Get inputs and labels
             image, label = data
