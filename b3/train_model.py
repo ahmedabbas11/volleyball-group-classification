@@ -1,4 +1,3 @@
-
 import os
 import torch
 import time
@@ -40,7 +39,7 @@ def train():
     loss = 0.0
     snapshot_path = 'snapshots/snapshot_latest.pt'
 
-    if os.path.exists(snapshot_path):
+    if os.path.exists(latest_snapshot_path):
         checkpoint = torch.load(latest_snapshot_path)
         model.load_state_dict(checkpoint['model_state_dict'])
         optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
