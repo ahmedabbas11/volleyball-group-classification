@@ -37,7 +37,6 @@ class VolleyballPlayerDataset(Dataset):
             print(f"video data size: {len(video_data)}")
             for clipId, clip_data in video_data.items():
                 for frameId, boxes in clip_data['frame_boxes_dct'].items():
-                    print(f"Processing videoId: {str(videoId)}, clipId: {clipId}, frameId: {frameId}")
                     frame_path = os.path.join(dataset_root, videos_folder, str(videoId), clipId, f"{frameId}.jpg")
                     # Check if the frame exists
                     if not os.path.exists(frame_path):
