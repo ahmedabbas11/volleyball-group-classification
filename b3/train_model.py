@@ -37,7 +37,6 @@ def train():
     start_step = 0
     start_epoch = 0
     loss = 0.0
-    snapshot_path = 'snapshots/snapshot_latest.pt'
 
     if os.path.exists(latest_snapshot_path):
         checkpoint = torch.load(latest_snapshot_path)
