@@ -9,8 +9,8 @@ from answers.boxinfo import BoxInfo
 CATEGORIES = ["spiking", "moving", "standing", "waiting", "blocking", "digging", "setting", "jumping", "falling"]
 CATEGORY_TO_INDEX = {c: i for i, c in enumerate(CATEGORIES)}
 
-class VolleyballActionDataset(Dataset):
-    def __init__(self, pickle_file, dataset_root, videos_folder, transform=None):
+class VolleyballPlayerDataset(Dataset):
+    def __init__(self, pickle_file, dataset_root, videos_folder, splits, transform=None):
         """
         Custom Dataset for Volleyball Action Classification
         :param pickle_file: Path to the pickle annotation file.
@@ -32,12 +32,13 @@ class VolleyballActionDataset(Dataset):
         print(f"dataset_root: {dataset_root}")
         print(f"videos folder: {os.path.join(dataset_root, videos_folder)}")
         # Extract metadata from pickle annotations
-        for videoId, video_data in videos_annot.items():
+        for videoId in splits:
+            video_data = videos_annot[str(videoId)]
             print(f"video data size: {len(video_data)}")
             for clipId, clip_data in video_data.items():
                 for frameId, boxes in clip_data['frame_boxes_dct'].items():
-
-                    frame_path = os.path.join(dataset_root, videos_folder, videoId, clipId, f"{frameId}.jpg")
+                    print(f"Processing videoId: {str(videoId)}, clipId: {clipId}, frameId: {frameId}")
+                    frame_path = os.path.join(dataset_root, videos_folder, str(videoId), clipId, f"{frameId}.jpg")
                     # Check if the frame exists
                     if not os.path.exists(frame_path):
                         print(f"Frame not found: {frame_path}")

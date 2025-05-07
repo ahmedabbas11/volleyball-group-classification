@@ -5,7 +5,7 @@ import time
 import torch.nn as nn
 from torchvision import models
 from config.config import working_dir, output_dir
-from b3.volleyball_action_dataloader import data_loader
+from b3.volleyball_player_dataloader import data_loader
 
 # Hyperparameters
 batch_size = 128
@@ -19,7 +19,7 @@ latest_snapshot_path = os.path.join(output_dir, 'snapshots', 'snapshot_latest.pt
 
 def train():
     # Load data
-    trainloader, testloader, classes = data_loader(batch_size=batch_size)
+    trainloader, valLoader, classes = data_loader(batch_size=batch_size)
 
     # Instantiate the model
     num_classes = len(classes)
