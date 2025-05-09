@@ -51,6 +51,7 @@ def train():
 
     # Training loop
     print('training started')
+    start_train_time = time.time()
     for epoch in range(start_epoch, num_epochs):  # Loop over the dataset multiple times
         running_loss = 0.0
         model.train()
@@ -58,8 +59,6 @@ def train():
         print("traingLoader size: ", len(trainloader))
         for step in range(start_step, len(trainloader)):
             data = trainloader.__iter__().__next__()
-
-            start_train_time = time.time()
             # Get inputs and labels
             image, label = data
             images, labels = image.to(device), label.to(device)
@@ -83,9 +82,11 @@ def train():
             if step % 1000 == 0:
                 save_checkpoint(model, optimizer, epoch, step, loss)
             train_time = time.time() - start_train_time
-            # print(f"Training step {step} time: {train_time:.4f} seconds")
-
-    print('Finished Training')
+            print(f"Training step {step} time: {train_time:.4f} seconds")
+        epoch_train_time = time.time() - start_train_time
+        print(f"Epoch ended in {epoch_train_time:.4f} seconds")
+    final_train_time = time.time() - start_train_time
+    print(f"Finished Training in {final_train_time:.4f} seconds")
 
     # Save the trained model
     model_path = os.path.join(models_dir, 'b3_a_resnet50_player_pos.pth')

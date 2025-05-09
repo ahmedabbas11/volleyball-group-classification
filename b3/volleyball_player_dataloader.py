@@ -30,7 +30,7 @@ def data_loader(batch_size=32, num_workers=4):
         transform=default_transform)
 
     # 🔹 Print dataset info
-    print(f"Validation Dataset Size: {len(trainDataset)} samples")
+    print(f"Validation Dataset Size: {len(validationDataset)} samples")
 
     # Create DataLoaders
     train_loader = DataLoader(trainDataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
