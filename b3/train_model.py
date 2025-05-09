@@ -27,6 +27,7 @@ def train():
 
     # Move model to GPU if available
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Using device: {device}")
     # device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
     model = model.to(device)
 
@@ -61,6 +62,8 @@ def train():
         for step in range(start_step, len(trainloader)):
             start_train_time = time.time()
             data = trainloader.__iter__().__next__()
+            loading_time = time.time() - start_train_time
+            print(f"get Item for step {step} took: {loading_time:.4f} seconds")
             # Get inputs and labels
             image, label = data
             images, labels = image.to(device), label.to(device)
