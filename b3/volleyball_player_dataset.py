@@ -1,4 +1,6 @@
+import cv2
 import torch
+import numpy as np
 from torch.utils.data import Dataset
 import torchvision.transforms as transforms
 from PIL import Image
@@ -62,17 +64,15 @@ class VolleyballPlayerDataset(Dataset):
         if self.last_frame_id != frame_path:
             # Load the full-frame image
             # print(f"Loading frame: {frame_path}")
-            self.last_frame_image = Image.open(frame_path).convert("RGB")
+            self.last_frame_image = cv2.imread(frame_path)
             self.last_frame_id = frame_path
-
         # Extract bounding box
         x1, y1, x2, y2 = box
-        cropped_img = self.last_frame_image.crop((x1, y1, x2, y2))  # Crop the player
-
+        cropped_img = self.last_frame_image[y1:y2, x1:x2]  # Crop the player
         # Apply transformations
         if self.transform:
-            cropped_img = self.transform(cropped_img)
-
+            transformed = self.transform(image=cropped_img)
+            cropped_img = transformed['image']
         return cropped_img, label
 
 
