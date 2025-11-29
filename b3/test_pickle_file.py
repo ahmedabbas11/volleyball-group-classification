@@ -11,6 +11,7 @@ def test_pickle(dataset_root):
     videoId = list(videos_annot.keys())[0]
     clipId = list(videos_annot[videoId].keys())[0]
     frameId = list(videos_annot[videoId][clipId]['frame_boxes_dct'].keys())[0]
+    print(f'frame Info:${videos_annot[videoId][clipId]['category']}')
 
     # Extract bounding boxes and annotations for a frame
     boxes: List[BoxInfo] = videos_annot[videoId][clipId]['frame_boxes_dct'][frameId]

@@ -2,7 +2,6 @@ import os
 import torch
 import time
 import torch.nn as nn
-from torchvision import models
 from config.config import working_dir, output_dir
 from b3.volleyball_player_dataloader import data_loader
 
